@@ -35,7 +35,13 @@ export const DesktopNav: React.FC<Props> = ({ navItems }) => {
 
         if (hasSubmenu && submenuItems && submenuItems.length > 0) {
           return (
-            <div key={i} className="relative" ref={(el) => (dropdownRefs.current[i] = el)}>
+            <div
+              key={i}
+              className="relative"
+              ref={(el) => {
+                dropdownRefs.current[i] = el
+              }}
+            >
               <button
                 onClick={() => toggleSubmenu(i)}
                 className="flex items-center gap-1 text-sm hover:text-primary transition-colors"
