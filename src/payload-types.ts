@@ -1635,9 +1635,17 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Logo affiché dans le header (formats recommandés : SVG, PNG avec fond transparent)
+   */
+  logo?: (number | null) | Media;
   navItems?:
     | {
-        link: {
+        /**
+         * Cochez cette case pour créer un menu déroulant avec plusieurs sous-items
+         */
+        hasSubmenu?: boolean | null;
+        link?: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
           reference?:
@@ -1652,6 +1660,30 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Ex: Ressources
+         */
+        submenuLabel?: string | null;
+        submenuItems?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -1692,9 +1724,11 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
   navItems?:
     | T
     | {
+        hasSubmenu?: T;
         link?:
           | T
           | {
@@ -1703,6 +1737,21 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        submenuLabel?: T;
+        submenuItems?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };
