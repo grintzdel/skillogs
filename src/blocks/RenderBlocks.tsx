@@ -1,12 +1,35 @@
 import React, { Fragment } from 'react'
 
-import type { Page } from '@/payload-types'
+import type {
+  Page,
+  ArchiveBlock as ArchiveBlockType,
+  CallToActionBlock as CallToActionBlockType,
+  ContentBlock as ContentBlockType,
+  FormBlock as FormBlockType,
+  MediaBlock as MediaBlockType,
+  ButtonBlock as ButtonBlockType,
+  HeroBlock as HeroBlockType,
+  SectionBlock as SectionBlockType,
+  HeadingBlock as HeadingBlockType,
+  SpacerBlock as SpacerBlockType,
+  FeaturesSectionBlock as FeaturesSectionBlockType,
+  CTASectionBlock as CTASectionBlockType,
+  TwoColumnsSectionBlock as TwoColumnsSectionBlockType,
+} from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { ButtonBlock } from '@/blocks/Button/Component'
+import { HeroBlock } from '@/blocks/Hero/Component'
+import { SectionBlock } from '@/blocks/Section/Component'
+import { HeadingBlock } from '@/blocks/Heading/Component'
+import { SpacerBlock } from '@/blocks/Spacer/Component'
+import { FeaturesSectionBlock } from '@/blocks/FeaturesSection/Component'
+import { CTASectionBlock } from '@/blocks/CTASection/Component'
+import { TwoColumnsSectionBlock } from '@/blocks/TwoColumnsSection/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -14,10 +37,33 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  button: ButtonBlock,
+  hero: HeroBlock,
+  section: SectionBlock,
+  heading: HeadingBlock,
+  spacer: SpacerBlock,
+  featuresSection: FeaturesSectionBlock,
+  ctaSection: CTASectionBlock,
+  twoColumnsSection: TwoColumnsSectionBlock,
 }
 
+type AnyBlock =
+  | ArchiveBlockType
+  | CallToActionBlockType
+  | ContentBlockType
+  | FormBlockType
+  | MediaBlockType
+  | ButtonBlockType
+  | HeroBlockType
+  | SectionBlockType
+  | HeadingBlockType
+  | SpacerBlockType
+  | FeaturesSectionBlockType
+  | CTASectionBlockType
+  | TwoColumnsSectionBlockType
+
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+  blocks: AnyBlock[]
 }> = (props) => {
   const { blocks } = props
 
@@ -30,13 +76,12 @@ export const RenderBlocks: React.FC<{
           const { blockType } = block
 
           if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+            const Block = blockComponents[blockType as keyof typeof blockComponents]
 
             if (Block) {
               return (
                 <div className="my-16" key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
+                  <Block {...(block as any)} />
                 </div>
               )
             }

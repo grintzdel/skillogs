@@ -157,50 +157,21 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    media?: (number | null) | Media;
-  };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | HeroBlock
+    | FeaturesSectionBlock
+    | CTASectionBlock
+    | TwoColumnsSectionBlock
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | ButtonBlock
+    | SectionBlock
+    | HeadingBlock
+    | SpacerBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -218,6 +189,70 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  /**
+   * Small text above the title
+   */
+  eyebrow?: string | null;
+  title: string;
+  subtitle?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  buttons?:
+    | {
+        label: string;
+        startIcon?: string | null;
+        endIcon?: string | null;
+        style?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  layout?: ('centered' | 'left' | 'split') | null;
+  columns?: ('one' | 'two') | null;
+  media?: (number | null) | Media;
+  mediaPosition?: ('left' | 'right') | null;
+  backgroundType?: ('color' | 'gradient' | 'image') | null;
+  backgroundColor?: ('white' | 'gray-light' | 'gray' | 'gray-dark' | 'primary' | 'secondary' | 'dark') | null;
+  gradientType?: ('linear' | 'radial') | null;
+  backgroundImage?: (number | null) | Media;
+  backgroundOverlay?: boolean | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  fullHeight?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -439,6 +474,100 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesSectionBlock".
+ */
+export interface FeaturesSectionBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  features?:
+    | {
+        icon?: string | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  columns?: ('2' | '3' | '4') | null;
+  backgroundColor?: ('white' | 'gray' | 'primary' | 'dark') | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featuresSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTASectionBlock".
+ */
+export interface CTASectionBlock {
+  title: string;
+  description?: string | null;
+  primaryButton: {
+    text: string;
+    url: string;
+  };
+  secondaryButton?: {
+    text?: string | null;
+    url?: string | null;
+  };
+  backgroundColor?: ('primary' | 'secondary' | 'gray' | 'dark') | null;
+  padding?: ('md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnsSectionBlock".
+ */
+export interface TwoColumnsSectionBlock {
+  leftColumn?: {
+    title?: string | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | Media;
+  };
+  rightColumn?: {
+    title?: string | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | Media;
+  };
+  columnRatio?: ('50-50' | '60-40' | '40-60' | '70-30' | '30-70') | null;
+  verticalAlignment?: ('start' | 'center' | 'end') | null;
+  backgroundColor?: ('white' | 'gray' | 'dark') | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'twoColumnsSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -473,10 +602,6 @@ export interface CallToActionBlock {
               } | null);
           url?: string | null;
           label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -523,10 +648,6 @@ export interface ContentBlock {
               } | null);
           url?: string | null;
           label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -778,6 +899,97 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ButtonBlock".
+ */
+export interface ButtonBlock {
+  label: string;
+  style: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  size?: ('sm' | 'md' | 'lg') | null;
+  fullWidth?: boolean | null;
+  link?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'button';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock".
+ */
+export interface SectionBlock {
+  blocks?:
+    | (
+        | ContentBlock
+        | MediaBlock
+        | CallToActionBlock
+        | ArchiveBlock
+        | FormBlock
+        | ButtonBlock
+        | HeadingBlock
+        | SpacerBlock
+        | ContainerBlock
+      )[]
+    | null;
+  backgroundColor?: ('transparent' | 'white' | 'gray-light' | 'gray' | 'primary' | 'secondary' | 'dark') | null;
+  padding?: ('none' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  containerWidth?: ('full' | 'container' | 'narrow') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingBlock".
+ */
+export interface HeadingBlock {
+  text: string;
+  level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  alignment?: ('left' | 'center' | 'right') | null;
+  color?: ('default' | 'primary' | 'secondary' | 'gray' | 'white') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heading';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpacerBlock".
+ */
+export interface SpacerBlock {
+  height: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'spacer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContainerBlock".
+ */
+export interface ContainerBlock {
+  direction?: ('column' | 'row') | null;
+  justifyContent?: ('start' | 'center' | 'end' | 'between' | 'around' | 'evenly') | null;
+  alignItems?: ('start' | 'center' | 'end' | 'stretch' | 'baseline') | null;
+  gap?: ('none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl') | null;
+  flexWrap?: ('nowrap' | 'wrap') | null;
+  padding?: ('none' | 'sm' | 'md' | 'lg') | null;
+  blocks?: (ContentBlock | MediaBlock | CallToActionBlock | ButtonBlock | HeadingBlock | SpacerBlock)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'container';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1057,36 +1269,22 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
-  hero?:
-    | T
-    | {
-        type?: T;
-        richText?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        media?: T;
-      };
   layout?:
     | T
     | {
+        hero?: T | HeroBlockSelect<T>;
+        featuresSection?: T | FeaturesSectionBlockSelect<T>;
+        ctaSection?: T | CTASectionBlockSelect<T>;
+        twoColumnsSection?: T | TwoColumnsSectionBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        button?: T | ButtonBlockSelect<T>;
+        section?: T | SectionBlockSelect<T>;
+        heading?: T | HeadingBlockSelect<T>;
+        spacer?: T | SpacerBlockSelect<T>;
       };
   meta?:
     | T
@@ -1101,6 +1299,117 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        startIcon?: T;
+        endIcon?: T;
+        style?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  layout?: T;
+  columns?: T;
+  media?: T;
+  mediaPosition?: T;
+  backgroundType?: T;
+  backgroundColor?: T;
+  gradientType?: T;
+  backgroundImage?: T;
+  backgroundOverlay?: T;
+  padding?: T;
+  fullHeight?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesSectionBlock_select".
+ */
+export interface FeaturesSectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  columns?: T;
+  backgroundColor?: T;
+  padding?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTASectionBlock_select".
+ */
+export interface CTASectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  primaryButton?:
+    | T
+    | {
+        text?: T;
+        url?: T;
+      };
+  secondaryButton?:
+    | T
+    | {
+        text?: T;
+        url?: T;
+      };
+  backgroundColor?: T;
+  padding?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TwoColumnsSectionBlock_select".
+ */
+export interface TwoColumnsSectionBlockSelect<T extends boolean = true> {
+  leftColumn?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        image?: T;
+      };
+  rightColumn?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        image?: T;
+      };
+  columnRatio?: T;
+  verticalAlignment?: T;
+  backgroundColor?: T;
+  padding?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1119,7 +1428,6 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
-              appearance?: T;
             };
         id?: T;
       };
@@ -1145,7 +1453,6 @@ export interface ContentBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
-              appearance?: T;
             };
         id?: T;
       };
@@ -1183,6 +1490,95 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ButtonBlock_select".
+ */
+export interface ButtonBlockSelect<T extends boolean = true> {
+  label?: T;
+  style?: T;
+  size?: T;
+  fullWidth?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SectionBlock_select".
+ */
+export interface SectionBlockSelect<T extends boolean = true> {
+  blocks?:
+    | T
+    | {
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        cta?: T | CallToActionBlockSelect<T>;
+        archive?: T | ArchiveBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        button?: T | ButtonBlockSelect<T>;
+        heading?: T | HeadingBlockSelect<T>;
+        spacer?: T | SpacerBlockSelect<T>;
+        container?: T | ContainerBlockSelect<T>;
+      };
+  backgroundColor?: T;
+  padding?: T;
+  containerWidth?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeadingBlock_select".
+ */
+export interface HeadingBlockSelect<T extends boolean = true> {
+  text?: T;
+  level?: T;
+  alignment?: T;
+  color?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpacerBlock_select".
+ */
+export interface SpacerBlockSelect<T extends boolean = true> {
+  height?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContainerBlock_select".
+ */
+export interface ContainerBlockSelect<T extends boolean = true> {
+  direction?: T;
+  justifyContent?: T;
+  alignItems?: T;
+  gap?: T;
+  flexWrap?: T;
+  padding?: T;
+  blocks?:
+    | T
+    | {
+        content?: T | ContentBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        cta?: T | CallToActionBlockSelect<T>;
+        button?: T | ButtonBlockSelect<T>;
+        heading?: T | HeadingBlockSelect<T>;
+        spacer?: T | SpacerBlockSelect<T>;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1839,6 +2235,34 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSectionBlock".
+ */
+export interface HeroSectionBlock {
+  eyebrow?: string | null;
+  title: string;
+  subtitle?: string | null;
+  primaryButton?: {
+    text?: string | null;
+    url?: string | null;
+    startIcon?: string | null;
+    endIcon?: string | null;
+  };
+  secondaryButton?: {
+    text?: string | null;
+    url?: string | null;
+    startIcon?: string | null;
+    endIcon?: string | null;
+  };
+  image?: (number | null) | Media;
+  layout?: ('centered' | 'left' | 'right') | null;
+  backgroundColor?: ('transparent' | 'white' | 'gray' | 'primary' | 'dark') | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
