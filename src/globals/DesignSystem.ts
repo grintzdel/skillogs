@@ -626,6 +626,36 @@ export const DesignSystem: GlobalConfig = {
             },
           ],
         },
+        {
+          label: 'Margin',
+          fields: [
+            {
+              type: 'collapsible',
+              label: 'Main Margins & Padding',
+              admin: {
+                description:
+                  'Configure horizontal margins and padding for the main content area (responsive)',
+              },
+              fields: [
+                {
+                  name: 'mainSpacingPreset',
+                  type: 'select',
+                  label: 'Spacing Preset',
+                  defaultValue: 'medium',
+                  options: [
+                    { label: 'Small', value: 'small' },
+                    { label: 'Medium', value: 'medium' },
+                    { label: 'Large', value: 'large' },
+                  ],
+                  admin: {
+                    description:
+                      'Select a preset spacing: Small (8px padding, max-width 960px), Medium (12px padding, max-width 1140px), Large (16px padding, max-width 1440px)',
+                  },
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
   ],

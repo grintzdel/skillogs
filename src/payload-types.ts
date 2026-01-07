@@ -2196,6 +2196,10 @@ export interface DesignSystem {
    * Opacity on hover (0-1, default: 1)
    */
   outlineButtonHoverOpacity?: number | null;
+  /**
+   * Select a preset spacing: Small (8px padding, max-width 960px), Medium (12px padding, max-width 1140px), Large (16px padding, max-width 1440px)
+   */
+  mainSpacingPreset?: ('small' | 'medium' | 'large') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2349,6 +2353,7 @@ export interface DesignSystemSelect<T extends boolean = true> {
   outlineButtonHoverBorderColor?: T;
   outlineButtonHoverTextColor?: T;
   outlineButtonHoverOpacity?: T;
+  mainSpacingPreset?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2473,34 +2478,6 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'code';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroSectionBlock".
- */
-export interface HeroSectionBlock {
-  eyebrow?: string | null;
-  title: string;
-  subtitle?: string | null;
-  primaryButton?: {
-    startIcon?: string | null;
-    text?: string | null;
-    endIcon?: string | null;
-    url?: string | null;
-  };
-  secondaryButton?: {
-    startIcon?: string | null;
-    text?: string | null;
-    endIcon?: string | null;
-    url?: string | null;
-  };
-  image?: (number | null) | Media;
-  layout?: ('centered' | 'left' | 'right') | null;
-  backgroundColor?: ('transparent' | 'white' | 'gray' | 'primary' | 'dark') | null;
-  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'heroSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

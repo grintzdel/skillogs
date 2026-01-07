@@ -19,7 +19,6 @@ import { Hero } from '../../blocks/Hero/config'
 import { Section } from '../../blocks/Section/config'
 import { Heading } from '../../blocks/Heading/config'
 import { Spacer } from '../../blocks/Spacer/config'
-import { HeroSection } from '../../blocks/HeroSection/config'
 import { FeaturesSection } from '../../blocks/FeaturesSection/config'
 import { CTASection } from '../../blocks/CTASection/config'
 import { TwoColumnsSection } from '../../blocks/TwoColumnsSection/config'
@@ -99,7 +98,19 @@ export const Posts: CollectionConfig<'posts'> = {
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
                     BlocksFeature({
-                      blocks: [Banner, Code, MediaBlock, Button, Hero, HeroSection, FeaturesSection, CTASection, TwoColumnsSection, Section, Heading, Spacer],
+                      blocks: [
+                        Banner,
+                        Code,
+                        MediaBlock,
+                        Button,
+                        Hero,
+                        FeaturesSection,
+                        CTASection,
+                        TwoColumnsSection,
+                        Section,
+                        Heading,
+                        Spacer,
+                      ],
                     }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),

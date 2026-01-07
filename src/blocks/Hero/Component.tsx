@@ -62,7 +62,7 @@ export const HeroBlock: React.FC<Props> = async ({
       backgroundType === 'gradient' && gradientType === 'radial',
   })
 
-  const contentClasses = cn('container mx-auto px-4', {
+  const contentClasses = cn({
     'text-center': layout === 'centered',
     'text-left': layout === 'left',
     'grid md:grid-cols-2 gap-8 items-center': layout === 'split',
