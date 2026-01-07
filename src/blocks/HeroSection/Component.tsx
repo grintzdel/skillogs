@@ -8,6 +8,7 @@ import {
   generateButtonStyle,
   getBaseButtonClasses,
 } from '@/utilities/applyButtonStyles'
+import { Icon } from '@/components/Icon'
 
 type Props = {
   className?: string
@@ -88,9 +89,11 @@ export const HeroSectionBlock: React.FC<Props> = async ({
                       className={cn(getBaseButtonClasses(), 'gap-2', primaryResult.className || '')}
                       style={primaryResult.style}
                     >
-                      {primaryButton.startIcon && <span>{primaryButton.startIcon}</span>}
+                      {primaryButton.startIcon && (
+                        <Icon icon={primaryButton.startIcon} aria-hidden />
+                      )}
                       {primaryButton.text}
-                      {primaryButton.endIcon && <span>{primaryButton.endIcon}</span>}
+                      {primaryButton.endIcon && <Icon icon={primaryButton.endIcon} aria-hidden />}
                     </Link>
                   )}
                   {secondaryButton?.text && secondaryButton?.url && (
@@ -103,9 +106,13 @@ export const HeroSectionBlock: React.FC<Props> = async ({
                       )}
                       style={secondaryResult.style}
                     >
-                      {secondaryButton.startIcon && <span>{secondaryButton.startIcon}</span>}
+                      {secondaryButton.startIcon && (
+                        <Icon icon={secondaryButton.startIcon} aria-hidden />
+                      )}
                       {secondaryButton.text}
-                      {secondaryButton.endIcon && <span>{secondaryButton.endIcon}</span>}
+                      {secondaryButton.endIcon && (
+                        <Icon icon={secondaryButton.endIcon} aria-hidden />
+                      )}
                     </Link>
                   )}
                 </div>

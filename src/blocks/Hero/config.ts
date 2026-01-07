@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { link } from '@/fields/link'
+import { createIconPickerField } from '@/fields/iconPicker'
 
 export const Hero: Block = {
   slug: 'hero',
@@ -50,19 +51,19 @@ export const Hero: Block = {
               maxRows: 3,
               fields: [
                 {
-                  name: 'label',
-                  type: 'text',
-                  required: true,
-                },
-                {
-                  name: 'startIcon',
-                  type: 'text',
-                  label: 'Start Icon (emoji)',
-                },
-                {
-                  name: 'endIcon',
-                  type: 'text',
-                  label: 'End Icon (emoji)',
+                  type: 'row',
+                  fields: [
+                    createIconPickerField({ name: 'startIcon', label: 'Icône bouton' }),
+                    {
+                      name: 'label',
+                      type: 'text',
+                      required: true,
+                      admin: {
+                        width: '50%',
+                      },
+                    },
+                    createIconPickerField({ name: 'endIcon', label: 'Icône bouton' }),
+                  ],
                 },
                 {
                   name: 'style',

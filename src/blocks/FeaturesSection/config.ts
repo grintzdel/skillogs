@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { createIconPickerField } from '@/fields/iconPicker'
 
 export const FeaturesSection: Block = {
   slug: 'featuresSection',
@@ -31,11 +32,7 @@ export const FeaturesSection: Block = {
               minRows: 1,
               maxRows: 12,
               fields: [
-                {
-                  name: 'icon',
-                  type: 'text',
-                  label: 'Icon (emoji or icon name)',
-                },
+                createIconPickerField({ name: 'icon', label: 'Icon' }),
                 {
                   name: 'title',
                   type: 'text',

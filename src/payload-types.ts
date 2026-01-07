@@ -220,8 +220,8 @@ export interface HeroBlock {
   } | null;
   buttons?:
     | {
-        label: string;
         startIcon?: string | null;
+        label: string;
         endIcon?: string | null;
         style?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
         link?: {
@@ -1314,8 +1314,8 @@ export interface HeroBlockSelect<T extends boolean = true> {
   buttons?:
     | T
     | {
-        label?: T;
         startIcon?: T;
+        label?: T;
         endIcon?: T;
         style?: T;
         link?:
@@ -2483,16 +2483,16 @@ export interface HeroSectionBlock {
   title: string;
   subtitle?: string | null;
   primaryButton?: {
-    text?: string | null;
-    url?: string | null;
     startIcon?: string | null;
+    text?: string | null;
     endIcon?: string | null;
+    url?: string | null;
   };
   secondaryButton?: {
-    text?: string | null;
-    url?: string | null;
     startIcon?: string | null;
+    text?: string | null;
     endIcon?: string | null;
+    url?: string | null;
   };
   image?: (number | null) | Media;
   layout?: ('centered' | 'left' | 'right') | null;

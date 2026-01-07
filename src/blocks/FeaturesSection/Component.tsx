@@ -1,6 +1,7 @@
 import React from 'react'
 import type { FeaturesSectionBlock as FeaturesSectionType } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { Icon } from '@/components/Icon'
 
 type Props = {
   className?: string
@@ -52,8 +53,8 @@ export const FeaturesSectionBlock: React.FC<Props> = ({
             {features.map((feature, index) => (
               <div key={index} className="text-center">
                 {feature.icon && (
-                  <div className="text-4xl mb-4" aria-hidden="true">
-                    {feature.icon}
+                  <div className="text-4xl mb-4">
+                    <Icon icon={feature.icon} className="inline-block" aria-hidden />
                   </div>
                 )}
                 {feature.title && <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>}

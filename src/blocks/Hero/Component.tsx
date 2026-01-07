@@ -9,6 +9,7 @@ import {
   generateButtonStyle,
   getBaseButtonClasses,
 } from '@/utilities/applyButtonStyles'
+import { Icon } from '@/components/Icon'
 
 type Props = {
   className?: string
@@ -136,7 +137,10 @@ export const HeroBlock: React.FC<Props> = async ({
                   hoverClassName = result.className || ''
                   hoverStylesCSS = result.hoverStyles || ''
                 } else if (button.style === 'secondary' && buttonStyles.secondary) {
-                  const result = generateButtonStyle(buttonStyles.secondary, `hero-secondary-${index}`)
+                  const result = generateButtonStyle(
+                    buttonStyles.secondary,
+                    `hero-secondary-${index}`,
+                  )
                   inlineStyle = result.style
                   hoverClassName = result.className || ''
                   hoverStylesCSS = result.hoverStyles || ''
@@ -153,24 +157,22 @@ export const HeroBlock: React.FC<Props> = async ({
                   hoverClassName = 'hover:bg-white/10'
                 }
 
-                const buttonClasses = cn(
-                  getBaseButtonClasses(),
-                  'gap-2',
-                  hoverClassName,
-                )
+                const buttonClasses = cn(getBaseButtonClasses(), 'gap-2', hoverClassName)
 
                 return (
                   <React.Fragment key={index}>
-                    {hoverStylesCSS && <style dangerouslySetInnerHTML={{ __html: hoverStylesCSS }} />}
+                    {hoverStylesCSS && (
+                      <style dangerouslySetInnerHTML={{ __html: hoverStylesCSS }} />
+                    )}
                     <CMSLink
                       {...button.link}
                       appearance="link"
                       className={buttonClasses}
                       style={inlineStyle}
                     >
-                      {button.startIcon && <span>{button.startIcon}</span>}
+                      {button.startIcon && <Icon icon={button.startIcon} aria-hidden />}
                       {button.label}
-                      {button.endIcon && <span>{button.endIcon}</span>}
+                      {button.endIcon && <Icon icon={button.endIcon} aria-hidden />}
                     </CMSLink>
                   </React.Fragment>
                 )

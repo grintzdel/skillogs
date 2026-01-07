@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { createIconPickerField } from '@/fields/iconPicker'
 
 export const HeroSection: Block = {
   slug: 'heroSection',
@@ -36,24 +37,24 @@ export const HeroSection: Block = {
               label: 'Primary Button',
               fields: [
                 {
-                  name: 'text',
-                  type: 'text',
-                  label: 'Button Text',
+                  type: 'row',
+                  fields: [
+                    createIconPickerField({ name: 'startIcon', label: 'Start Icon' }),
+                    {
+                      name: 'text',
+                      type: 'text',
+                      label: 'Button Text',
+                      admin: {
+                        width: '50%',
+                      },
+                    },
+                    createIconPickerField({ name: 'endIcon', label: 'End Icon' }),
+                  ],
                 },
                 {
                   name: 'url',
                   type: 'text',
                   label: 'Button URL',
-                },
-                {
-                  name: 'startIcon',
-                  type: 'text',
-                  label: 'Start Icon (emoji ou texte)',
-                },
-                {
-                  name: 'endIcon',
-                  type: 'text',
-                  label: 'End Icon (emoji ou texte)',
                 },
               ],
             },
@@ -63,24 +64,24 @@ export const HeroSection: Block = {
               label: 'Secondary Button (Outline)',
               fields: [
                 {
-                  name: 'text',
-                  type: 'text',
-                  label: 'Button Text',
+                  type: 'row',
+                  fields: [
+                    createIconPickerField({ name: 'startIcon', label: 'Icône au début' }),
+                    {
+                      name: 'text',
+                      type: 'text',
+                      label: 'Button Text',
+                      admin: {
+                        width: '50%',
+                      },
+                    },
+                    createIconPickerField({ name: 'endIcon', label: 'Icône à la fin' }),
+                  ],
                 },
                 {
                   name: 'url',
                   type: 'text',
                   label: 'Button URL',
-                },
-                {
-                  name: 'startIcon',
-                  type: 'text',
-                  label: 'Start Icon (emoji ou texte)',
-                },
-                {
-                  name: 'endIcon',
-                  type: 'text',
-                  label: 'End Icon (emoji ou texte)',
                 },
               ],
             },
