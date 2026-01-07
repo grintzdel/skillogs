@@ -4,12 +4,17 @@ import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
 import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
+import {
+  getButtonStylesForComponent,
+  generateButtonStyle,
+  getBaseButtonClasses,
+} from '@/utilities/applyButtonStyles'
 
 type Props = {
   className?: string
 } & HeroBlockType
 
-export const HeroBlock: React.FC<Props> = ({
+export const HeroBlock: React.FC<Props> = async ({
   eyebrow,
   title,
   subtitle,
@@ -72,6 +77,9 @@ export const HeroBlock: React.FC<Props> = ({
       ? 'text-white'
       : 'text-gray-900'
 
+  // Récupérer les styles de boutons du Design System
+  const buttonStyles = await getButtonStylesForComponent()
+
   return (
     <section className={containerClasses}>
       <div className={backgroundClasses}>
@@ -117,23 +125,54 @@ export const HeroBlock: React.FC<Props> = ({
               {buttons.map((button, index) => {
                 if (!button.link) return null
 
+                // Sélectionner le style approprié depuis le Design System
+                let inlineStyle: React.CSSProperties = {}
+                let hoverClassName = ''
+                let hoverStylesCSS = ''
+
+                if (button.style === 'primary' && buttonStyles.primary) {
+                  const result = generateButtonStyle(buttonStyles.primary, `hero-primary-${index}`)
+                  inlineStyle = result.style
+                  hoverClassName = result.className || ''
+                  hoverStylesCSS = result.hoverStyles || ''
+                } else if (button.style === 'secondary' && buttonStyles.secondary) {
+                  const result = generateButtonStyle(buttonStyles.secondary, `hero-secondary-${index}`)
+                  inlineStyle = result.style
+                  hoverClassName = result.className || ''
+                  hoverStylesCSS = result.hoverStyles || ''
+                } else if (button.style === 'outline' && buttonStyles.outline) {
+                  const result = generateButtonStyle(buttonStyles.outline, `hero-outline-${index}`)
+                  inlineStyle = result.style
+                  hoverClassName = result.className || ''
+                  hoverStylesCSS = result.hoverStyles || ''
+                } else if (button.style === 'ghost') {
+                  inlineStyle = {
+                    backgroundColor: 'transparent',
+                    color: '#ffffff',
+                  }
+                  hoverClassName = 'hover:bg-white/10'
+                }
+
                 const buttonClasses = cn(
-                  'inline-flex items-center gap-2 justify-center font-bold transition-colors px-4 py-2 text-[16px] rounded-[6px] whitespace-nowrap',
-                  {
-                    'bg-[#bcff5f] text-black hover:bg-[#a8e54f]': button.style === 'primary',
-                    'bg-gray-600 text-white hover:bg-gray-700': button.style === 'secondary',
-                    'bg-transparent border border-[#5036ff] text-[#5036ff] hover:bg-[#5036ff]/5 font-normal':
-                      button.style === 'outline',
-                    'text-white hover:bg-white/10': button.style === 'ghost',
-                  },
+                  getBaseButtonClasses(),
+                  'gap-2',
+                  hoverClassName,
                 )
 
                 return (
-                  <CMSLink key={index} {...button.link} appearance="link" className={buttonClasses}>
-                    {button.startIcon && <span>{button.startIcon}</span>}
-                    {button.label}
-                    {button.endIcon && <span>{button.endIcon}</span>}
-                  </CMSLink>
+                  <React.Fragment key={index}>
+                    {hoverStylesCSS && <style dangerouslySetInnerHTML={{ __html: hoverStylesCSS }} />}
+                    <CMSLink
+                      {...button.link}
+                      appearance="link"
+                      className={buttonClasses}
+                      style={inlineStyle}
+                    >
+                      {button.startIcon && <span>{button.startIcon}</span>}
+                      {button.label}
+                      {button.endIcon && <span>{button.endIcon}</span>}
+                    </CMSLink>
+                  </React.Fragment>
                 )
               })}
             </div>

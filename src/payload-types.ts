@@ -110,10 +110,12 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    'design-system': DesignSystem;
     header: Header;
     footer: Footer;
   };
   globalsSelect: {
+    'design-system': DesignSystemSelect<false> | DesignSystemSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
@@ -2027,6 +2029,178 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "design-system".
+ */
+export interface DesignSystem {
+  id: number;
+  /**
+   * Main brand color (HEX format: #RRGGBB)
+   */
+  primaryColor: string;
+  /**
+   * Secondary brand color (HEX format: #RRGGBB)
+   */
+  secondaryColor: string;
+  /**
+   * Accent/highlight color (HEX format: #RRGGBB)
+   */
+  accentColor: string;
+  /**
+   * Success state color (HEX format: #RRGGBB)
+   */
+  successColor: string;
+  /**
+   * Warning state color (HEX format: #RRGGBB)
+   */
+  warningColor: string;
+  /**
+   * Error state color (HEX format: #RRGGBB)
+   */
+  errorColor: string;
+  /**
+   * Add up to 2 additional custom colors
+   */
+  customColors?:
+    | {
+        /**
+         * e.g., "Tertiary", "Custom Blue"
+         */
+        label: string;
+        /**
+         * HEX color value (format: #RRGGBB)
+         */
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  primaryButtonHasBackground?: boolean | null;
+  /**
+   * Background color (HEX format: #RRGGBB)
+   */
+  primaryButtonBackgroundColor?: string | null;
+  primaryButtonHasBorder?: boolean | null;
+  /**
+   * Border color (HEX format: #RRGGBB)
+   */
+  primaryButtonBorderColor?: string | null;
+  /**
+   * Text color (HEX format: #RRGGBB)
+   */
+  primaryButtonTextColor: string;
+  /**
+   * Border radius in pixels (0-50)
+   */
+  primaryButtonBorderRadius?: number | null;
+  primaryButtonFontBold?: boolean | null;
+  primaryButtonFontItalic?: boolean | null;
+  primaryButtonTextUnderline?: boolean | null;
+  /**
+   * Enable custom hover effects for this button
+   */
+  primaryButtonEnableHover?: boolean | null;
+  /**
+   * Background color on hover (HEX format: #RRGGBB)
+   */
+  primaryButtonHoverBackgroundColor?: string | null;
+  /**
+   * Border color on hover (HEX format: #RRGGBB)
+   */
+  primaryButtonHoverBorderColor?: string | null;
+  /**
+   * Text color on hover (HEX format: #RRGGBB)
+   */
+  primaryButtonHoverTextColor?: string | null;
+  /**
+   * Opacity on hover (0-1, default: 1)
+   */
+  primaryButtonHoverOpacity?: number | null;
+  secondaryButtonHasBackground?: boolean | null;
+  /**
+   * Background color (HEX format: #RRGGBB)
+   */
+  secondaryButtonBackgroundColor?: string | null;
+  secondaryButtonHasBorder?: boolean | null;
+  /**
+   * Border color (HEX format: #RRGGBB)
+   */
+  secondaryButtonBorderColor?: string | null;
+  /**
+   * Text color (HEX format: #RRGGBB)
+   */
+  secondaryButtonTextColor: string;
+  /**
+   * Border radius in pixels (0-50)
+   */
+  secondaryButtonBorderRadius?: number | null;
+  secondaryButtonFontBold?: boolean | null;
+  secondaryButtonFontItalic?: boolean | null;
+  secondaryButtonTextUnderline?: boolean | null;
+  /**
+   * Enable custom hover effects for this button
+   */
+  secondaryButtonEnableHover?: boolean | null;
+  /**
+   * Background color on hover (HEX format: #RRGGBB)
+   */
+  secondaryButtonHoverBackgroundColor?: string | null;
+  /**
+   * Border color on hover (HEX format: #RRGGBB)
+   */
+  secondaryButtonHoverBorderColor?: string | null;
+  /**
+   * Text color on hover (HEX format: #RRGGBB)
+   */
+  secondaryButtonHoverTextColor?: string | null;
+  /**
+   * Opacity on hover (0-1, default: 1)
+   */
+  secondaryButtonHoverOpacity?: number | null;
+  outlineButtonHasBackground?: boolean | null;
+  /**
+   * Background color (HEX format: #RRGGBB or "transparent")
+   */
+  outlineButtonBackgroundColor?: string | null;
+  outlineButtonHasBorder?: boolean | null;
+  /**
+   * Border color (HEX format: #RRGGBB)
+   */
+  outlineButtonBorderColor?: string | null;
+  /**
+   * Text color (HEX format: #RRGGBB)
+   */
+  outlineButtonTextColor: string;
+  /**
+   * Border radius in pixels (0-50)
+   */
+  outlineButtonBorderRadius?: number | null;
+  outlineButtonFontBold?: boolean | null;
+  outlineButtonFontItalic?: boolean | null;
+  outlineButtonTextUnderline?: boolean | null;
+  /**
+   * Enable custom hover effects for this button
+   */
+  outlineButtonEnableHover?: boolean | null;
+  /**
+   * Background color on hover (HEX format: #RRGGBB)
+   */
+  outlineButtonHoverBackgroundColor?: string | null;
+  /**
+   * Border color on hover (HEX format: #RRGGBB)
+   */
+  outlineButtonHoverBorderColor?: string | null;
+  /**
+   * Text color on hover (HEX format: #RRGGBB)
+   */
+  outlineButtonHoverTextColor?: string | null;
+  /**
+   * Opacity on hover (0-1, default: 1)
+   */
+  outlineButtonHoverOpacity?: number | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
 export interface Header {
@@ -2114,6 +2288,70 @@ export interface Footer {
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "design-system_select".
+ */
+export interface DesignSystemSelect<T extends boolean = true> {
+  primaryColor?: T;
+  secondaryColor?: T;
+  accentColor?: T;
+  successColor?: T;
+  warningColor?: T;
+  errorColor?: T;
+  customColors?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  primaryButtonHasBackground?: T;
+  primaryButtonBackgroundColor?: T;
+  primaryButtonHasBorder?: T;
+  primaryButtonBorderColor?: T;
+  primaryButtonTextColor?: T;
+  primaryButtonBorderRadius?: T;
+  primaryButtonFontBold?: T;
+  primaryButtonFontItalic?: T;
+  primaryButtonTextUnderline?: T;
+  primaryButtonEnableHover?: T;
+  primaryButtonHoverBackgroundColor?: T;
+  primaryButtonHoverBorderColor?: T;
+  primaryButtonHoverTextColor?: T;
+  primaryButtonHoverOpacity?: T;
+  secondaryButtonHasBackground?: T;
+  secondaryButtonBackgroundColor?: T;
+  secondaryButtonHasBorder?: T;
+  secondaryButtonBorderColor?: T;
+  secondaryButtonTextColor?: T;
+  secondaryButtonBorderRadius?: T;
+  secondaryButtonFontBold?: T;
+  secondaryButtonFontItalic?: T;
+  secondaryButtonTextUnderline?: T;
+  secondaryButtonEnableHover?: T;
+  secondaryButtonHoverBackgroundColor?: T;
+  secondaryButtonHoverBorderColor?: T;
+  secondaryButtonHoverTextColor?: T;
+  secondaryButtonHoverOpacity?: T;
+  outlineButtonHasBackground?: T;
+  outlineButtonBackgroundColor?: T;
+  outlineButtonHasBorder?: T;
+  outlineButtonBorderColor?: T;
+  outlineButtonTextColor?: T;
+  outlineButtonBorderRadius?: T;
+  outlineButtonFontBold?: T;
+  outlineButtonFontItalic?: T;
+  outlineButtonTextUnderline?: T;
+  outlineButtonEnableHover?: T;
+  outlineButtonHoverBackgroundColor?: T;
+  outlineButtonHoverBorderColor?: T;
+  outlineButtonHoverTextColor?: T;
+  outlineButtonHoverOpacity?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

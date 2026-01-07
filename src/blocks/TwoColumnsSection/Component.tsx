@@ -60,7 +60,10 @@ export const TwoColumnsSectionBlock: React.FC<Props> = ({
       <div>
         {column.title && <h3 className="text-2xl font-bold mb-4">{column.title}</h3>}
         {column.content && (
-          <div className="prose max-w-none mb-4" dangerouslySetInnerHTML={{ __html: column.content }} />
+          <div
+            className="prose max-w-none mb-4"
+            dangerouslySetInnerHTML={{ __html: column.content }}
+          />
         )}
         {column.image && typeof column.image === 'object' && column.image.url && (
           <div className="relative w-full h-64">

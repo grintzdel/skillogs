@@ -42,9 +42,7 @@ export const SectionBlock: React.FC<Props> = ({
 
   return (
     <section className={sectionClasses}>
-      <div className={containerClasses}>
-        {blocks && <RenderBlocks blocks={blocks} />}
-      </div>
+      <div className={containerClasses}>{blocks && <RenderBlocks blocks={blocks} />}</div>
     </section>
   )
 }

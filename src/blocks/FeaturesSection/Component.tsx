@@ -57,9 +57,7 @@ export const FeaturesSectionBlock: React.FC<Props> = ({
                   </div>
                 )}
                 {feature.title && <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>}
-                {feature.description && (
-                  <p className="text-gray-600">{feature.description}</p>
-                )}
+                {feature.description && <p className="text-gray-600">{feature.description}</p>}
               </div>
             ))}
           </div>

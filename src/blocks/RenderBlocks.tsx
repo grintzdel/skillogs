@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 
 import type {
-  Page,
   ArchiveBlock as ArchiveBlockType,
   CallToActionBlock as CallToActionBlockType,
   ContentBlock as ContentBlockType,
@@ -12,6 +11,7 @@ import type {
   SectionBlock as SectionBlockType,
   HeadingBlock as HeadingBlockType,
   SpacerBlock as SpacerBlockType,
+  ContainerBlock as ContainerBlockType,
   FeaturesSectionBlock as FeaturesSectionBlockType,
   CTASectionBlock as CTASectionBlockType,
   TwoColumnsSectionBlock as TwoColumnsSectionBlockType,
@@ -27,6 +27,7 @@ import { HeroBlock } from '@/blocks/Hero/Component'
 import { SectionBlock } from '@/blocks/Section/Component'
 import { HeadingBlock } from '@/blocks/Heading/Component'
 import { SpacerBlock } from '@/blocks/Spacer/Component'
+import { ContainerBlock } from '@/blocks/Container/Component'
 import { FeaturesSectionBlock } from '@/blocks/FeaturesSection/Component'
 import { CTASectionBlock } from '@/blocks/CTASection/Component'
 import { TwoColumnsSectionBlock } from '@/blocks/TwoColumnsSection/Component'
@@ -42,6 +43,7 @@ const blockComponents = {
   section: SectionBlock,
   heading: HeadingBlock,
   spacer: SpacerBlock,
+  container: ContainerBlock,
   featuresSection: FeaturesSectionBlock,
   ctaSection: CTASectionBlock,
   twoColumnsSection: TwoColumnsSectionBlock,
@@ -58,6 +60,7 @@ type AnyBlock =
   | SectionBlockType
   | HeadingBlockType
   | SpacerBlockType
+  | ContainerBlockType
   | FeaturesSectionBlockType
   | CTASectionBlockType
   | TwoColumnsSectionBlockType
