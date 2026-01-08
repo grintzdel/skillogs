@@ -16,6 +16,7 @@ import { FeaturesSection } from '../../blocks/FeaturesSection/config'
 import { CTASection } from '../../blocks/CTASection/config'
 import { TwoColumnsSection } from '../../blocks/TwoColumnsSection/config'
 import { Text } from '../../blocks/Text/config'
+import { CardGridSection } from '../../blocks/CardGridSection/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
@@ -81,6 +82,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FeaturesSection,
                 CTASection,
                 TwoColumnsSection,
+                CardGridSection,
                 CallToAction,
                 Content,
                 MediaBlock,

@@ -164,6 +164,7 @@ export interface Page {
     | FeaturesSectionBlock
     | CTASectionBlock
     | TwoColumnsSectionBlock
+    | CardGridSectionBlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
@@ -568,6 +569,121 @@ export interface TwoColumnsSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'twoColumnsSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardGridSectionBlock".
+ */
+export interface CardGridSectionBlock {
+  title?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  subtitle?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cards?:
+    | {
+        /**
+         * Numéro ou texte affiché au-dessus du titre
+         */
+        number?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        title?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        media?: (number | null) | Media;
+        /**
+         * Position du média dans la carte
+         */
+        mediaPosition?: ('top' | 'bottom') | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Active un style de carte avec fond et/ou bordure. Si désactivé, seul le contenu est affiché.
+   */
+  enableCard?: boolean | null;
+  /**
+   * Couleur de fond des cartes (HEX format: #RRGGBB)
+   */
+  cardBackgroundColor?: string | null;
+  /**
+   * Couleur de bordure des cartes (HEX format: #RRGGBB)
+   */
+  cardBorderColor?: string | null;
+  cardBorderRadius?: ('none' | 'sm' | 'md' | 'lg' | 'xl' | 'full') | null;
+  backgroundType?: ('color' | 'image') | null;
+  backgroundColor?: ('white' | 'gray-light' | 'gray' | 'gray-dark' | 'primary' | 'secondary' | 'dark') | null;
+  backgroundImage?: (number | null) | Media;
+  backgroundOverlay?: boolean | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cardGridSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1308,6 +1424,7 @@ export interface PagesSelect<T extends boolean = true> {
         featuresSection?: T | FeaturesSectionBlockSelect<T>;
         ctaSection?: T | CTASectionBlockSelect<T>;
         twoColumnsSection?: T | TwoColumnsSectionBlockSelect<T>;
+        cardGridSection?: T | CardGridSectionBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1440,6 +1557,35 @@ export interface TwoColumnsSectionBlockSelect<T extends boolean = true> {
   columnRatio?: T;
   verticalAlignment?: T;
   backgroundColor?: T;
+  padding?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CardGridSectionBlock_select".
+ */
+export interface CardGridSectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  cards?:
+    | T
+    | {
+        number?: T;
+        title?: T;
+        description?: T;
+        media?: T;
+        mediaPosition?: T;
+        id?: T;
+      };
+  enableCard?: T;
+  cardBackgroundColor?: T;
+  cardBorderColor?: T;
+  cardBorderRadius?: T;
+  backgroundType?: T;
+  backgroundColor?: T;
+  backgroundImage?: T;
+  backgroundOverlay?: T;
   padding?: T;
   id?: T;
   blockName?: T;
