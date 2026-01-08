@@ -173,6 +173,7 @@ export interface Page {
     | SectionBlock
     | HeadingBlock
     | SpacerBlock
+    | TextBlock
   )[];
   meta?: {
     title?: string | null;
@@ -995,6 +996,35 @@ export interface ContainerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  richText: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Set the maximum width of the text container
+   */
+  maxWidth?: ('none' | 'sm' | 'md' | 'prose' | 'lg' | 'xl' | 'full') | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1287,6 +1317,7 @@ export interface PagesSelect<T extends boolean = true> {
         section?: T | SectionBlockSelect<T>;
         heading?: T | HeadingBlockSelect<T>;
         spacer?: T | SpacerBlockSelect<T>;
+        text?: T | TextBlockSelect<T>;
       };
   meta?:
     | T
@@ -1581,6 +1612,17 @@ export interface ContainerBlockSelect<T extends boolean = true> {
         heading?: T | HeadingBlockSelect<T>;
         spacer?: T | SpacerBlockSelect<T>;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+  richText?: T;
+  maxWidth?: T;
+  padding?: T;
   id?: T;
   blockName?: T;
 }

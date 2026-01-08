@@ -15,6 +15,7 @@ import type {
   FeaturesSectionBlock as FeaturesSectionBlockType,
   CTASectionBlock as CTASectionBlockType,
   TwoColumnsSectionBlock as TwoColumnsSectionBlockType,
+  TextBlock as TextBlockType,
 } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
@@ -31,6 +32,7 @@ import { ContainerBlock } from '@/blocks/Container/Component'
 import { FeaturesSectionBlock } from '@/blocks/FeaturesSection/Component'
 import { CTASectionBlock } from '@/blocks/CTASection/Component'
 import { TwoColumnsSectionBlock } from '@/blocks/TwoColumnsSection/Component'
+import { TextBlock } from '@/blocks/Text/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -47,6 +49,7 @@ const blockComponents = {
   featuresSection: FeaturesSectionBlock,
   ctaSection: CTASectionBlock,
   twoColumnsSection: TwoColumnsSectionBlock,
+  text: TextBlock,
 }
 
 type AnyBlock =
@@ -64,6 +67,7 @@ type AnyBlock =
   | FeaturesSectionBlockType
   | CTASectionBlockType
   | TwoColumnsSectionBlockType
+  | TextBlockType
 
 export const RenderBlocks: React.FC<{
   blocks: AnyBlock[]
