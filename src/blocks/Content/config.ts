@@ -6,6 +6,20 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import {
+  TextColorFeature,
+  TextSizeFeature,
+  TextLetterSpacingFeature,
+  TextLineHeightFeature,
+  TextFontFamilyFeature,
+} from 'payload-lexical-typography'
+import {
+  baseColors,
+  sizes,
+  letterSpacings,
+  lineHeights,
+  fontFamilies,
+} from '@/fields/typographyConfig'
 
 import { link } from '@/fields/link'
 
@@ -43,6 +57,35 @@ const columnFields: Field[] = [
           HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
+          TextColorFeature({
+            colors: baseColors,
+            colorPicker: true,
+            listView: false,
+          }),
+          TextSizeFeature({
+            sizes,
+            customSize: true,
+            scroll: true,
+            method: 'combine',
+          }),
+          TextLetterSpacingFeature({
+            spacings: letterSpacings,
+            customSpacing: true,
+            scroll: false,
+            method: 'combine',
+          }),
+          TextLineHeightFeature({
+            lineHeights,
+            customLineHeight: true,
+            scroll: false,
+            method: 'combine',
+          }),
+          TextFontFamilyFeature({
+            fontFamilies,
+            customFontFamily: true,
+            scroll: false,
+            method: 'combine',
+          }),
         ]
       },
     }),

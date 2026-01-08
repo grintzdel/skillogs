@@ -6,6 +6,20 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import {
+  TextColorFeature,
+  TextSizeFeature,
+  TextLetterSpacingFeature,
+  TextLineHeightFeature,
+  TextFontFamilyFeature,
+} from 'payload-lexical-typography'
+import {
+  baseColors,
+  sizes,
+  letterSpacings,
+  lineHeights,
+  fontFamilies,
+} from '@/fields/typographyConfig'
 
 export const Archive: Block = {
   slug: 'archive',
@@ -21,6 +35,35 @@ export const Archive: Block = {
             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
+            TextColorFeature({
+              colors: baseColors,
+              colorPicker: true,
+              listView: false,
+            }),
+            TextSizeFeature({
+              sizes,
+              customSize: true,
+              scroll: true,
+              method: 'combine',
+            }),
+            TextLetterSpacingFeature({
+              spacings: letterSpacings,
+              customSpacing: true,
+              scroll: false,
+              method: 'combine',
+            }),
+            TextLineHeightFeature({
+              lineHeights,
+              customLineHeight: true,
+              scroll: false,
+              method: 'combine',
+            }),
+            TextFontFamilyFeature({
+              fontFamilies,
+              customFontFamily: true,
+              scroll: false,
+              method: 'combine',
+            }),
           ]
         },
       }),
