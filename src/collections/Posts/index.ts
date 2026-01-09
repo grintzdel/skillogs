@@ -15,7 +15,7 @@ import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Button } from '../../blocks/Button/config'
-import { Hero } from '../../blocks/Hero/config'
+import { TextImageSection } from '../../blocks/TextImageSection/config'
 import { Section } from '../../blocks/Section/config'
 import { Heading } from '../../blocks/Heading/config'
 import { Spacer } from '../../blocks/Spacer/config'
@@ -103,7 +103,7 @@ export const Posts: CollectionConfig<'posts'> = {
                         Code,
                         MediaBlock,
                         Button,
-                        Hero,
+                        TextImageSection,
                         FeaturesSection,
                         CTASection,
                         TwoColumnsSection,

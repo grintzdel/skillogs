@@ -8,7 +8,7 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Button } from '../../blocks/Button/config'
-import { Hero } from '../../blocks/Hero/config'
+import { TextImageSection } from '../../blocks/TextImageSection/config'
 import { Section } from '../../blocks/Section/config'
 import { Heading } from '../../blocks/Heading/config'
 import { Spacer } from '../../blocks/Spacer/config'
@@ -79,7 +79,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                Hero,
+                TextImageSection,
                 FeaturesSection,
                 CTASection,
                 TwoColumnsSection,

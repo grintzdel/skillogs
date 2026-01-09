@@ -160,7 +160,7 @@ export interface Page {
   id: number;
   title: string;
   layout: (
-    | HeroBlock
+    | TextImageSectionBlock
     | FeaturesSectionBlock
     | CTASectionBlock
     | TwoColumnsSectionBlock
@@ -197,15 +197,57 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
+ * via the `definition` "TextImageSectionBlock".
  */
-export interface HeroBlock {
+export interface TextImageSectionBlock {
   /**
    * Small text above the title
    */
-  eyebrow?: string | null;
-  title: string;
-  subtitle?: string | null;
+  eyebrow?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  title: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  subtitle?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   description?: {
     root: {
       type: string;
@@ -246,8 +288,30 @@ export interface HeroBlock {
     | null;
   layout?: ('centered' | 'left' | 'split') | null;
   columns?: ('one' | 'two') | null;
+  mediaType?: ('image' | 'youtube') | null;
   media?: (number | null) | Media;
+  /**
+   * Paste the YouTube video URL or embed iframe code
+   */
+  youtubeUrl?: string | null;
   mediaPosition?: ('left' | 'right') | null;
+  /**
+   * Add a drop shadow effect to the image/video
+   */
+  showMediaShadow?: boolean | null;
+  /**
+   * Show a divider line after the title
+   */
+  showDivider?: boolean | null;
+  /**
+   * Width of the divider in percentage (10% to 100%)
+   */
+  dividerWidth?: number | null;
+  dividerThickness?: ('1' | '2' | '4' | '8') | null;
+  /**
+   * Choose a color for the divider
+   */
+  dividerColor?: string | null;
   backgroundType?: ('color' | 'gradient' | 'image') | null;
   backgroundColor?: ('white' | 'gray-light' | 'gray' | 'gray-dark' | 'primary' | 'secondary' | 'dark') | null;
   gradientType?: ('linear' | 'radial') | null;
@@ -257,7 +321,7 @@ export interface HeroBlock {
   fullHeight?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'hero';
+  blockType: 'textImageSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1506,7 +1570,7 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        hero?: T | HeroBlockSelect<T>;
+        textImageSection?: T | TextImageSectionBlockSelect<T>;
         featuresSection?: T | FeaturesSectionBlockSelect<T>;
         ctaSection?: T | CTASectionBlockSelect<T>;
         twoColumnsSection?: T | TwoColumnsSectionBlockSelect<T>;
@@ -1539,9 +1603,9 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock_select".
+ * via the `definition` "TextImageSectionBlock_select".
  */
-export interface HeroBlockSelect<T extends boolean = true> {
+export interface TextImageSectionBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   subtitle?: T;
@@ -1565,8 +1629,15 @@ export interface HeroBlockSelect<T extends boolean = true> {
       };
   layout?: T;
   columns?: T;
+  mediaType?: T;
   media?: T;
+  youtubeUrl?: T;
   mediaPosition?: T;
+  showMediaShadow?: T;
+  showDivider?: T;
+  dividerWidth?: T;
+  dividerThickness?: T;
+  dividerColor?: T;
   backgroundType?: T;
   backgroundColor?: T;
   gradientType?: T;

@@ -1,5 +1,5 @@
 import React from 'react'
-import type { HeroBlock as HeroBlockType } from '@/payload-types'
+import type { TextImageSectionBlock as TextImageSectionBlockType } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
 import { Media } from '@/components/Media'
@@ -13,9 +13,35 @@ import { Icon } from '@/components/Icon'
 
 type Props = {
   className?: string
-} & HeroBlockType
+} & TextImageSectionBlockType
 
-export const HeroBlock: React.FC<Props> = async ({
+// Function to extract YouTube video ID from various URL formats
+const extractYouTubeId = (url: string): string | null => {
+  if (!url) return null
+
+  // Check if it's an iframe
+  const iframeMatch = url.match(/src=["']([^"']+)["']/)
+  if (iframeMatch) {
+    url = iframeMatch[1]
+  }
+
+  // Match various YouTube URL formats
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+    /^([a-zA-Z0-9_-]{11})$/, // Direct video ID
+  ]
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern)
+    if (match && match[1]) {
+      return match[1]
+    }
+  }
+
+  return null
+}
+
+export const TextImageSectionBlock: React.FC<Props> = async ({
   eyebrow,
   title,
   subtitle,
@@ -23,14 +49,21 @@ export const HeroBlock: React.FC<Props> = async ({
   buttons,
   layout = 'centered',
   columns = 'one',
+  mediaType = 'image',
   media,
+  youtubeUrl,
   mediaPosition = 'right',
+  showMediaShadow = false,
+  showDivider = false,
+  dividerWidth = 100,
+  dividerThickness = '1',
+  dividerColor = '#5036ff',
   backgroundType = 'color',
   backgroundColor = 'white',
   gradientType,
   backgroundImage,
   backgroundOverlay,
-  padding = 'lg',
+  padding = 'sm',
   fullHeight,
   className,
 }) => {
@@ -78,8 +111,63 @@ export const HeroBlock: React.FC<Props> = async ({
       ? 'text-white'
       : 'text-gray-900'
 
-  // Récupérer les styles de boutons du Design System
+  // Get button styles from Design System
   const buttonStyles = await getButtonStylesForComponent()
+
+  // Extract YouTube video ID if applicable
+  const youtubeVideoId = mediaType === 'youtube' && youtubeUrl ? extractYouTubeId(youtubeUrl) : null
+
+  // Render divider
+  const renderDivider = () => {
+    if (!showDivider) return null
+
+    return (
+      <div className="w-full flex">
+        <div
+          className="rounded-full"
+          style={{
+            width: `${dividerWidth}%`,
+            height: `${dividerThickness}px`,
+            backgroundColor: dividerColor || '#5036ff',
+          }}
+        />
+      </div>
+    )
+  }
+
+  // Render media (image or YouTube)
+  const renderMedia = () => {
+    if (mediaType === 'youtube' && youtubeVideoId) {
+      return (
+        <div
+          className={cn('relative w-full aspect-video rounded-lg overflow-hidden', {
+            'shadow-2xl': showMediaShadow,
+          })}
+        >
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
+        </div>
+      )
+    }
+
+    if (mediaType === 'image' && media && typeof media !== 'string') {
+      return (
+        <Media
+          resource={media}
+          className={cn('rounded-lg overflow-hidden', {
+            'shadow-2xl': showMediaShadow,
+          })}
+        />
+      )
+    }
+
+    return null
+  }
 
   return (
     <section className={containerClasses}>
@@ -98,20 +186,33 @@ export const HeroBlock: React.FC<Props> = async ({
 
       <div className={contentClasses}>
         <div
-          className={cn('flex flex-col gap-8', {
+          className={cn('flex flex-col gap-4', {
             'order-2': layout === 'split' && mediaPosition === 'left',
           })}
         >
-          {eyebrow && <p className={cn('text-[20px] font-bold', textColor)}>{eyebrow}</p>}
+          {eyebrow && (
+            <div className={cn(textColor)}>
+              <RichText data={eyebrow} enableGutter={false} enableProse={false} />
+            </div>
+          )}
 
-          {title && <h1 className={cn('text-[40px] font-bold', textColor)}>{title}</h1>}
+          {title && (
+            <div className={cn(textColor)}>
+              <RichText data={title} enableGutter={false} enableProse={false} />
+            </div>
+          )}
+
+          {/* Divider after title */}
+          {renderDivider()}
 
           {subtitle && (
-            <p className={cn('text-xl md:text-2xl', textColor, 'opacity-90')}>{subtitle}</p>
+            <div className={cn(textColor, 'opacity-90')}>
+              <RichText data={subtitle} enableGutter={false} enableProse={false} />
+            </div>
           )}
 
           {description && (
-            <div className={cn('prose max-w-none', textColor)}>
+            <div className={cn('prose max-w-none [&_h1]:mt-4 [&_h2]:mt-4 [&_h3]:mt-4 [&_h4]:mt-4 [&_h1]:mb-2 [&_h2]:mb-2 [&_h3]:mb-2 [&_h4]:mb-2', textColor)}>
               <RichText data={description} enableGutter={false} />
             </div>
           )}
@@ -126,26 +227,32 @@ export const HeroBlock: React.FC<Props> = async ({
               {buttons.map((button, index) => {
                 if (!button.link) return null
 
-                // Sélectionner le style approprié depuis le Design System
+                // Select appropriate style from Design System
                 let inlineStyle: React.CSSProperties = {}
                 let hoverClassName = ''
                 let hoverStylesCSS = ''
 
                 if (button.style === 'primary' && buttonStyles.primary) {
-                  const result = generateButtonStyle(buttonStyles.primary, `hero-primary-${index}`)
+                  const result = generateButtonStyle(
+                    buttonStyles.primary,
+                    `text-image-primary-${index}`,
+                  )
                   inlineStyle = result.style
                   hoverClassName = result.className || ''
                   hoverStylesCSS = result.hoverStyles || ''
                 } else if (button.style === 'secondary' && buttonStyles.secondary) {
                   const result = generateButtonStyle(
                     buttonStyles.secondary,
-                    `hero-secondary-${index}`,
+                    `text-image-secondary-${index}`,
                   )
                   inlineStyle = result.style
                   hoverClassName = result.className || ''
                   hoverStylesCSS = result.hoverStyles || ''
                 } else if (button.style === 'outline' && buttonStyles.outline) {
-                  const result = generateButtonStyle(buttonStyles.outline, `hero-outline-${index}`)
+                  const result = generateButtonStyle(
+                    buttonStyles.outline,
+                    `text-image-outline-${index}`,
+                  )
                   inlineStyle = result.style
                   hoverClassName = result.className || ''
                   hoverStylesCSS = result.hoverStyles || ''
@@ -181,13 +288,13 @@ export const HeroBlock: React.FC<Props> = async ({
           )}
         </div>
 
-        {layout === 'split' && media && typeof media !== 'string' && (
+        {layout === 'split' && (mediaType === 'image' || mediaType === 'youtube') && (
           <div
             className={cn('relative', {
               'order-1': mediaPosition === 'left',
             })}
           >
-            <Media resource={media} className="rounded-lg overflow-hidden shadow-2xl" />
+            {renderMedia()}
           </div>
         )}
       </div>

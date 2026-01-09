@@ -17,12 +17,46 @@ import {
 import { link } from '@/fields/link'
 import { createIconPickerField } from '@/fields/iconPicker'
 
-export const Hero: Block = {
-  slug: 'hero',
-  interfaceName: 'HeroBlock',
+const typographyFeatures = ({ defaultFeatures }: any) => [
+  ...defaultFeatures,
+  InlineToolbarFeature(),
+  TextColorFeature({
+    colors: baseColors,
+    colorPicker: true,
+    listView: false,
+  }),
+  TextSizeFeature({
+    sizes,
+    customSize: true,
+    scroll: true,
+    method: 'combine',
+  }),
+  TextLetterSpacingFeature({
+    spacings: letterSpacings,
+    customSpacing: true,
+    scroll: false,
+    method: 'combine',
+  }),
+  TextLineHeightFeature({
+    lineHeights,
+    customLineHeight: true,
+    scroll: false,
+    method: 'combine',
+  }),
+  TextFontFamilyFeature({
+    fontFamilies,
+    customFontFamily: true,
+    scroll: false,
+    method: 'combine',
+  }),
+]
+
+export const TextImageSection: Block = {
+  slug: 'textImageSection',
+  interfaceName: 'TextImageSectionBlock',
   labels: {
-    singular: 'Hero Section',
-    plural: 'Hero Sections',
+    singular: 'Text Button and Image Section',
+    plural: 'Text Button and Image Sections',
   },
   fields: [
     {
@@ -33,62 +67,39 @@ export const Hero: Block = {
           fields: [
             {
               name: 'eyebrow',
-              type: 'text',
+              type: 'richText',
               label: 'Eyebrow Text',
+              editor: lexicalEditor({
+                features: typographyFeatures,
+              }),
               admin: {
                 description: 'Small text above the title',
               },
             },
             {
               name: 'title',
-              type: 'text',
+              type: 'richText',
               required: true,
               label: 'Title',
+              editor: lexicalEditor({
+                features: typographyFeatures,
+              }),
             },
             {
               name: 'subtitle',
-              type: 'textarea',
+              type: 'richText',
               label: 'Subtitle',
+              editor: lexicalEditor({
+                features: typographyFeatures,
+              }),
             },
             {
               name: 'description',
               type: 'richText',
-              editor: lexicalEditor({
-                features: ({ defaultFeatures }) => [
-                  ...defaultFeatures,
-                  InlineToolbarFeature(),
-                  TextColorFeature({
-                    colors: baseColors,
-                    colorPicker: true,
-                    listView: false,
-                  }),
-                  TextSizeFeature({
-                    sizes,
-                    customSize: true,
-                    scroll: true,
-                    method: 'combine',
-                  }),
-                  TextLetterSpacingFeature({
-                    spacings: letterSpacings,
-                    customSpacing: true,
-                    scroll: false,
-                    method: 'combine',
-                  }),
-                  TextLineHeightFeature({
-                    lineHeights,
-                    customLineHeight: true,
-                    scroll: false,
-                    method: 'combine',
-                  }),
-                  TextFontFamilyFeature({
-                    fontFamilies,
-                    customFontFamily: true,
-                    scroll: false,
-                    method: 'combine',
-                  }),
-                ],
-              }),
               label: 'Description',
+              editor: lexicalEditor({
+                features: typographyFeatures,
+              }),
             },
             {
               name: 'buttons',
@@ -158,10 +169,34 @@ export const Hero: Block = {
           label: 'Media',
           fields: [
             {
+              name: 'mediaType',
+              type: 'radio',
+              defaultValue: 'image',
+              options: [
+                { label: 'Image/Video', value: 'image' },
+                { label: 'YouTube Video', value: 'youtube' },
+              ],
+              admin: {
+                layout: 'horizontal',
+              },
+            },
+            {
               name: 'media',
               type: 'upload',
               relationTo: 'media',
               label: 'Image/Video',
+              admin: {
+                condition: (_, siblingData) => siblingData?.mediaType !== 'youtube',
+              },
+            },
+            {
+              name: 'youtubeUrl',
+              type: 'text',
+              label: 'YouTube URL',
+              admin: {
+                condition: (_, siblingData) => siblingData?.mediaType === 'youtube',
+                description: 'Paste the YouTube video URL or embed iframe code',
+              },
             },
             {
               name: 'mediaPosition',
@@ -174,6 +209,73 @@ export const Hero: Block = {
               admin: {
                 condition: (_, siblingData) => siblingData?.layout === 'split',
                 layout: 'horizontal',
+              },
+            },
+            {
+              name: 'showMediaShadow',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Add Shadow to Media',
+              admin: {
+                description: 'Add a drop shadow effect to the image/video',
+              },
+            },
+          ],
+        },
+        {
+          label: 'Divider',
+          fields: [
+            {
+              name: 'showDivider',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Show Horizontal Divider',
+              admin: {
+                description: 'Show a divider line after the title',
+              },
+            },
+            {
+              name: 'dividerWidth',
+              type: 'number',
+              defaultValue: 100,
+              label: 'Divider Width',
+              min: 10,
+              max: 100,
+              admin: {
+                condition: (_, siblingData) => siblingData?.showDivider === true,
+                step: 10,
+                description: 'Width of the divider in percentage (10% to 100%)',
+                components: {
+                  Field: '@/fields/rangeSlider#RangeSliderField',
+                },
+              },
+            },
+            {
+              name: 'dividerThickness',
+              type: 'select',
+              defaultValue: '1',
+              label: 'Divider Thickness',
+              options: [
+                { label: '1px', value: '1' },
+                { label: '2px', value: '2' },
+                { label: '4px', value: '4' },
+                { label: '8px', value: '8' },
+              ],
+              admin: {
+                condition: (_, siblingData) => siblingData?.showDivider === true,
+              },
+            },
+            {
+              name: 'dividerColor',
+              type: 'text',
+              defaultValue: '#5036ff',
+              label: 'Divider Color',
+              admin: {
+                condition: (_, siblingData) => siblingData?.showDivider === true,
+                description: 'Choose a color for the divider',
+                components: {
+                  Field: '@/fields/colorPicker#ColorPickerField',
+                },
               },
             },
           ],
@@ -245,7 +347,7 @@ export const Hero: Block = {
             {
               name: 'padding',
               type: 'select',
-              defaultValue: 'lg',
+              defaultValue: 'sm',
               options: [
                 { label: 'Small', value: 'sm' },
                 { label: 'Medium', value: 'md' },

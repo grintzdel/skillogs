@@ -7,7 +7,7 @@ import type {
   FormBlock as FormBlockType,
   MediaBlock as MediaBlockType,
   ButtonBlock as ButtonBlockType,
-  HeroBlock as HeroBlockType,
+  TextImageSectionBlock as TextImageSectionBlockType,
   SectionBlock as SectionBlockType,
   HeadingBlock as HeadingBlockType,
   SpacerBlock as SpacerBlockType,
@@ -26,7 +26,7 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { ButtonBlock } from '@/blocks/Button/Component'
-import { HeroBlock } from '@/blocks/Hero/Component'
+import { TextImageSectionBlock } from '@/blocks/TextImageSection/Component'
 import { SectionBlock } from '@/blocks/Section/Component'
 import { HeadingBlock } from '@/blocks/Heading/Component'
 import { SpacerBlock } from '@/blocks/Spacer/Component'
@@ -45,7 +45,7 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   button: ButtonBlock,
-  hero: HeroBlock,
+  textImageSection: TextImageSectionBlock,
   section: SectionBlock,
   heading: HeadingBlock,
   spacer: SpacerBlock,
@@ -65,7 +65,7 @@ type AnyBlock =
   | FormBlockType
   | MediaBlockType
   | ButtonBlockType
-  | HeroBlockType
+  | TextImageSectionBlockType
   | SectionBlockType
   | HeadingBlockType
   | SpacerBlockType
