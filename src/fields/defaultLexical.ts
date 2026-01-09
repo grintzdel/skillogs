@@ -58,7 +58,7 @@ export const defaultLexical = lexicalEditor({
     }),
     TextSizeFeature({
       sizes,
-      customSize: true,
+      customSize: false, // Disabled: use Design System presets via h1-h6 instead
       scroll: true,
       method: 'combine',
     }),

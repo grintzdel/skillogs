@@ -47,6 +47,8 @@ import { default as default_ddee2037c3f10f4d598f9d3c3ac6a9c6 } from '@/component
 import { default as default_a3047c4acc679c7e837ea430201d3364 } from '@/components/PrimaryButtonPreview'
 import { default as default_54555f53146af5b735d0aa1969cd48c4 } from '@/components/SecondaryButtonPreview'
 import { default as default_f09ed9a05e460ab4b391d78119f011ff } from '@/components/OutlineButtonPreview'
+import { FontFamilyPreview as FontFamilyPreview_a388441e2c02fd6a7c0f219a027c02a0 } from '@/components/FontFamilyPreview'
+import { TypographyScalePreview as TypographyScalePreview_e930c175968295f67077e2058f9033e2 } from '@/components/TypographyScalePreview'
 import { RowLabel as RowLabel_ec255a65fa6fa8d1faeb09cf35284224 } from '@/Header/RowLabel'
 import { RowLabel as RowLabel_1f6ff6ff633e3695d348f4f3c58f1466 } from '@/Footer/RowLabel'
 import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
@@ -103,6 +105,8 @@ export const importMap = {
   "@/components/PrimaryButtonPreview#default": default_a3047c4acc679c7e837ea430201d3364,
   "@/components/SecondaryButtonPreview#default": default_54555f53146af5b735d0aa1969cd48c4,
   "@/components/OutlineButtonPreview#default": default_f09ed9a05e460ab4b391d78119f011ff,
+  "@/components/FontFamilyPreview#FontFamilyPreview": FontFamilyPreview_a388441e2c02fd6a7c0f219a027c02a0,
+  "@/components/TypographyScalePreview#TypographyScalePreview": TypographyScalePreview_e930c175968295f67077e2058f9033e2,
   "@/Header/RowLabel#RowLabel": RowLabel_ec255a65fa6fa8d1faeb09cf35284224,
   "@/Footer/RowLabel#RowLabel": RowLabel_1f6ff6ff633e3695d348f4f3c58f1466,
   "@/components/BeforeDashboard#default": default_1a7510af427896d367a49dbf838d2de6,

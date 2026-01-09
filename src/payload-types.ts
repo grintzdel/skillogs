@@ -2571,6 +2571,141 @@ export interface DesignSystem {
    * Select a preset spacing: Small (8px padding, max-width 960px), Medium (12px padding, max-width 1140px), Large (16px padding, max-width 1440px)
    */
   mainSpacingPreset?: ('small' | 'medium' | 'large') | null;
+  /**
+   * Default font for paragraphs, descriptions, and body text
+   */
+  bodyFontFamily:
+    | 'geist-sans'
+    | 'geist-mono'
+    | 'inter'
+    | 'roboto'
+    | 'open-sans'
+    | 'lato'
+    | 'montserrat'
+    | 'system-sans'
+    | 'system-serif'
+    | 'system-mono'
+    | 'custom';
+  /**
+   * e.g., "Inter, system-ui, sans-serif"
+   */
+  bodyFontFamilyCustom?: string | null;
+  /**
+   * Default font for titles, headings, and hero text
+   */
+  headingFontFamily:
+    | 'geist-sans'
+    | 'geist-mono'
+    | 'inter'
+    | 'roboto'
+    | 'open-sans'
+    | 'lato'
+    | 'montserrat'
+    | 'system-sans'
+    | 'system-serif'
+    | 'system-mono'
+    | 'inherit'
+    | 'custom';
+  /**
+   * e.g., "Playfair Display, serif"
+   */
+  headingFontFamilyCustom?: string | null;
+  h1Size:
+    | '0.75rem'
+    | '0.875rem'
+    | '1rem'
+    | '1.125rem'
+    | '1.25rem'
+    | '1.5rem'
+    | '1.875rem'
+    | '2.25rem'
+    | '3rem'
+    | '3.75rem'
+    | '4.5rem';
+  h2Size:
+    | '0.75rem'
+    | '0.875rem'
+    | '1rem'
+    | '1.125rem'
+    | '1.25rem'
+    | '1.5rem'
+    | '1.875rem'
+    | '2.25rem'
+    | '3rem'
+    | '3.75rem'
+    | '4.5rem';
+  h3Size:
+    | '0.75rem'
+    | '0.875rem'
+    | '1rem'
+    | '1.125rem'
+    | '1.25rem'
+    | '1.5rem'
+    | '1.875rem'
+    | '2.25rem'
+    | '3rem'
+    | '3.75rem'
+    | '4.5rem';
+  h4Size:
+    | '0.75rem'
+    | '0.875rem'
+    | '1rem'
+    | '1.125rem'
+    | '1.25rem'
+    | '1.5rem'
+    | '1.875rem'
+    | '2.25rem'
+    | '3rem'
+    | '3.75rem'
+    | '4.5rem';
+  h5Size:
+    | '0.75rem'
+    | '0.875rem'
+    | '1rem'
+    | '1.125rem'
+    | '1.25rem'
+    | '1.5rem'
+    | '1.875rem'
+    | '2.25rem'
+    | '3rem'
+    | '3.75rem'
+    | '4.5rem';
+  h6Size:
+    | '0.75rem'
+    | '0.875rem'
+    | '1rem'
+    | '1.125rem'
+    | '1.25rem'
+    | '1.5rem'
+    | '1.875rem'
+    | '2.25rem'
+    | '3rem'
+    | '3.75rem'
+    | '4.5rem';
+  /**
+   * Fluid: smooth scaling. Breakpoint: fixed sizes per device.
+   */
+  responsiveStrategy: 'clamp' | 'breakpoint';
+  /**
+   * Minimum viewport width for fluid scaling (typically 320px for mobile)
+   */
+  fluidScaleBase?: number | null;
+  /**
+   * Maximum viewport width for fluid scaling (typically 1440px for desktop)
+   */
+  fluidScaleMax?: number | null;
+  /**
+   * How much smaller text should be on mobile (0.65 = 65% of desktop size)
+   */
+  fluidScaleRatio?: number | null;
+  /**
+   * Font size on tablet as % of desktop (0.85 = 85%)
+   */
+  tabletScaleRatio?: number | null;
+  /**
+   * Font size on mobile as % of desktop (0.65 = 65%)
+   */
+  mobileScaleRatio?: number | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2725,6 +2860,22 @@ export interface DesignSystemSelect<T extends boolean = true> {
   outlineButtonHoverTextColor?: T;
   outlineButtonHoverOpacity?: T;
   mainSpacingPreset?: T;
+  bodyFontFamily?: T;
+  bodyFontFamilyCustom?: T;
+  headingFontFamily?: T;
+  headingFontFamilyCustom?: T;
+  h1Size?: T;
+  h2Size?: T;
+  h3Size?: T;
+  h4Size?: T;
+  h5Size?: T;
+  h6Size?: T;
+  responsiveStrategy?: T;
+  fluidScaleBase?: T;
+  fluidScaleMax?: T;
+  fluidScaleRatio?: T;
+  tabletScaleRatio?: T;
+  mobileScaleRatio?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

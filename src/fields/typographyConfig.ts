@@ -58,6 +58,26 @@ export const fontFamilies = [
     value: 'var(--font-geist-mono), ui-monospace, monospace',
   },
   {
+    label: 'Inter',
+    value: '"Inter", ui-sans-serif, system-ui, sans-serif',
+  },
+  {
+    label: 'Roboto',
+    value: '"Roboto", ui-sans-serif, system-ui, sans-serif',
+  },
+  {
+    label: 'Open Sans',
+    value: '"Open Sans", ui-sans-serif, system-ui, sans-serif',
+  },
+  {
+    label: 'Lato',
+    value: '"Lato", ui-sans-serif, system-ui, sans-serif',
+  },
+  {
+    label: 'Montserrat',
+    value: '"Montserrat", ui-sans-serif, system-ui, sans-serif',
+  },
+  {
     label: 'System Sans',
     value:
       'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
