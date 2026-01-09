@@ -165,6 +165,7 @@ export interface Page {
     | CTASectionBlock
     | TwoColumnsSectionBlock
     | CardGridSectionBlock
+    | MediaGridSectionBlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
@@ -684,6 +685,91 @@ export interface CardGridSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'cardGridSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaGridSectionBlock".
+ */
+export interface MediaGridSectionBlock {
+  title?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  subtitle?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  medias?:
+    | {
+        media: number | Media;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        /**
+         * Position du média par rapport à la description
+         */
+        mediaPosition?: ('top' | 'bottom') | null;
+        id?: string | null;
+      }[]
+    | null;
+  backgroundType?: ('color' | 'image') | null;
+  backgroundColor?: ('white' | 'gray-light' | 'gray' | 'gray-dark' | 'primary' | 'secondary' | 'dark') | null;
+  backgroundImage?: (number | null) | Media;
+  backgroundOverlay?: boolean | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  mediaSize?: ('small' | 'medium' | 'large') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaGridSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1425,6 +1511,7 @@ export interface PagesSelect<T extends boolean = true> {
         ctaSection?: T | CTASectionBlockSelect<T>;
         twoColumnsSection?: T | TwoColumnsSectionBlockSelect<T>;
         cardGridSection?: T | CardGridSectionBlockSelect<T>;
+        mediaGridSection?: T | MediaGridSectionBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1587,6 +1674,31 @@ export interface CardGridSectionBlockSelect<T extends boolean = true> {
   backgroundImage?: T;
   backgroundOverlay?: T;
   padding?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaGridSectionBlock_select".
+ */
+export interface MediaGridSectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  medias?:
+    | T
+    | {
+        media?: T;
+        description?: T;
+        mediaPosition?: T;
+        id?: T;
+      };
+  backgroundType?: T;
+  backgroundColor?: T;
+  backgroundImage?: T;
+  backgroundOverlay?: T;
+  padding?: T;
+  mediaSize?: T;
   id?: T;
   blockName?: T;
 }

@@ -17,6 +17,7 @@ import type {
   TwoColumnsSectionBlock as TwoColumnsSectionBlockType,
   TextBlock as TextBlockType,
   CardGridSectionBlock as CardGridSectionBlockType,
+  MediaGridSectionBlock as MediaGridSectionBlockType,
 } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
@@ -35,6 +36,7 @@ import { CTASectionBlock } from '@/blocks/CTASection/Component'
 import { TwoColumnsSectionBlock } from '@/blocks/TwoColumnsSection/Component'
 import { TextBlock } from '@/blocks/Text/Component'
 import { CardGridSectionBlock } from '@/blocks/CardGridSection/Component'
+import { MediaGridSectionBlock } from '@/blocks/MediaGridSection/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -53,6 +55,7 @@ const blockComponents = {
   twoColumnsSection: TwoColumnsSectionBlock,
   text: TextBlock,
   cardGridSection: CardGridSectionBlock,
+  mediaGridSection: MediaGridSectionBlock,
 }
 
 type AnyBlock =
@@ -72,6 +75,7 @@ type AnyBlock =
   | TwoColumnsSectionBlockType
   | TextBlockType
   | CardGridSectionBlockType
+  | MediaGridSectionBlockType
 
 export const RenderBlocks: React.FC<{
   blocks: AnyBlock[]
