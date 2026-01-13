@@ -8,6 +8,14 @@ import {
   UnderlineFeature,
   type LinkFields,
 } from '@payloadcms/richtext-lexical'
+import {
+  TextColorFeature,
+  TextSizeFeature,
+  TextLetterSpacingFeature,
+  TextLineHeightFeature,
+  TextFontFamilyFeature,
+} from 'payload-lexical-typography'
+import { baseColors, sizes, letterSpacings, lineHeights, fontFamilies } from './typographyConfig'
 
 export const defaultLexical = lexicalEditor({
   features: [
@@ -42,6 +50,29 @@ export const defaultLexical = lexicalEditor({
           },
         ]
       },
+    }),
+    // Typography features
+    TextColorFeature({
+      colors: baseColors, // Couleurs de base + Design System chargées dynamiquement
+      colorPicker: true, // Color picker toujours activé pour surcharge personnalisée
+    }),
+    TextSizeFeature({
+      sizes,
+      customSize: false, // Disabled: use Design System presets via h1-h6 instead
+      scroll: true,
+      method: 'combine',
+    }),
+    TextLetterSpacingFeature({
+      spacings: letterSpacings,
+      scroll: false,
+    }),
+    TextLineHeightFeature({
+      lineHeights,
+      scroll: false,
+    }),
+    TextFontFamilyFeature({
+      fontFamilies,
+      scroll: false,
     }),
   ],
 })

@@ -6,12 +6,14 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { BodyMargin } from '@/components/BodyMargin'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+import { TypographyStylesInjector } from '@/components/TypographyStylesInjector'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -25,6 +27,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <BodyMargin />
+        <TypographyStylesInjector />
       </head>
       <body>
         <Providers>
@@ -35,7 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
 
           <Header />
-          {children}
+          <main>{children}</main>
           <Footer />
         </Providers>
       </body>

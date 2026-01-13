@@ -14,6 +14,14 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Button } from '../../blocks/Button/config'
+import { TextImageSection } from '../../blocks/TextImageSection/config'
+import { Section } from '../../blocks/Section/config'
+import { Heading } from '../../blocks/Heading/config'
+import { Spacer } from '../../blocks/Spacer/config'
+import { FeaturesSection } from '../../blocks/FeaturesSection/config'
+import { CTASection } from '../../blocks/CTASection/config'
+import { TwoColumnsSection } from '../../blocks/TwoColumnsSection/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -89,7 +97,21 @@ export const Posts: CollectionConfig<'posts'> = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    BlocksFeature({
+                      blocks: [
+                        Banner,
+                        Code,
+                        MediaBlock,
+                        Button,
+                        TextImageSection,
+                        FeaturesSection,
+                        CTASection,
+                        TwoColumnsSection,
+                        Section,
+                        Heading,
+                        Spacer,
+                      ],
+                    }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
