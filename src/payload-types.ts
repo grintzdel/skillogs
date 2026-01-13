@@ -160,6 +160,7 @@ export interface Page {
   id: number;
   title: string;
   layout: (
+    | BannerBlock
     | TextImageSectionBlock
     | FeaturesSectionBlock
     | CTASectionBlock
@@ -197,9 +198,9 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextImageSectionBlock".
+ * via the `definition` "BannerBlock".
  */
-export interface TextImageSectionBlock {
+export interface BannerBlock {
   /**
    * Small text above the title
    */
@@ -286,42 +287,17 @@ export interface TextImageSectionBlock {
         id?: string | null;
       }[]
     | null;
-  layout?: ('centered' | 'left' | 'split') | null;
-  columns?: ('one' | 'two') | null;
-  mediaType?: ('image' | 'youtube') | null;
-  media?: (number | null) | Media;
-  /**
-   * Paste the YouTube video URL or embed iframe code
-   */
-  youtubeUrl?: string | null;
-  mediaPosition?: ('left' | 'right') | null;
-  /**
-   * Add a drop shadow effect to the image/video
-   */
-  showMediaShadow?: boolean | null;
-  /**
-   * Show a divider line after the title
-   */
-  showDivider?: boolean | null;
-  /**
-   * Width of the divider in percentage (10% to 100%)
-   */
-  dividerWidth?: number | null;
-  dividerThickness?: ('1' | '2' | '4' | '8') | null;
-  /**
-   * Choose a color for the divider
-   */
-  dividerColor?: string | null;
-  backgroundType?: ('color' | 'gradient' | 'image') | null;
+  backgroundType?: ('color' | 'image') | null;
   backgroundColor?: ('white' | 'gray-light' | 'gray' | 'gray-dark' | 'primary' | 'secondary' | 'dark') | null;
-  gradientType?: ('linear' | 'radial') | null;
   backgroundImage?: (number | null) | Media;
+  /**
+   * Makes text more readable over images
+   */
   backgroundOverlay?: boolean | null;
   padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
-  fullHeight?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'textImageSection';
+  blockType: 'banner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -540,6 +516,134 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextImageSectionBlock".
+ */
+export interface TextImageSectionBlock {
+  /**
+   * Small text above the title
+   */
+  eyebrow?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  title: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  subtitle?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  buttons?:
+    | {
+        startIcon?: string | null;
+        label: string;
+        endIcon?: string | null;
+        style?: ('primary' | 'secondary' | 'outline' | 'ghost') | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  layout?: ('centered' | 'left' | 'split') | null;
+  columns?: ('one' | 'two') | null;
+  mediaType?: ('image' | 'youtube') | null;
+  media?: (number | null) | Media;
+  /**
+   * Paste the YouTube video URL or embed iframe code
+   */
+  youtubeUrl?: string | null;
+  mediaPosition?: ('left' | 'right') | null;
+  /**
+   * Add a drop shadow effect to the image/video
+   */
+  showMediaShadow?: boolean | null;
+  /**
+   * Show a divider line after the title
+   */
+  showDivider?: boolean | null;
+  /**
+   * Width of the divider in percentage (10% to 100%)
+   */
+  dividerWidth?: number | null;
+  dividerThickness?: ('1' | '2' | '4' | '8') | null;
+  /**
+   * Choose a color for the divider
+   */
+  dividerColor?: string | null;
+  backgroundType?: ('color' | 'gradient' | 'image') | null;
+  backgroundColor?: ('white' | 'gray-light' | 'gray' | 'gray-dark' | 'primary' | 'secondary' | 'dark') | null;
+  gradientType?: ('linear' | 'radial') | null;
+  backgroundImage?: (number | null) | Media;
+  backgroundOverlay?: boolean | null;
+  padding?: ('sm' | 'md' | 'lg' | 'xl') | null;
+  fullHeight?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textImageSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1570,6 +1674,7 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        banner?: T | BannerBlockSelect<T>;
         textImageSection?: T | TextImageSectionBlockSelect<T>;
         featuresSection?: T | FeaturesSectionBlockSelect<T>;
         ctaSection?: T | CTASectionBlockSelect<T>;
@@ -1600,6 +1705,40 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock_select".
+ */
+export interface BannerBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  buttons?:
+    | T
+    | {
+        startIcon?: T;
+        label?: T;
+        endIcon?: T;
+        style?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  backgroundType?: T;
+  backgroundColor?: T;
+  backgroundImage?: T;
+  backgroundOverlay?: T;
+  padding?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2776,6 +2915,17 @@ export interface Header {
  */
 export interface Footer {
   id: number;
+  /**
+   * Couleur de fond du footer
+   */
+  backgroundColor?: string | null;
+  /**
+   * Couleur des liens et textes du footer
+   */
+  textColor?: string | null;
+  /**
+   * Les liens seront organisés en colonnes de 3 maximum
+   */
   navItems?:
     | {
         link: {
@@ -2796,6 +2946,18 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  socialLinks?:
+    | {
+        icon: string;
+        url: string;
+        /**
+         * Ex: Facebook, Twitter, LinkedIn
+         */
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  copyright?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2925,6 +3087,8 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  backgroundColor?: T;
+  textColor?: T;
   navItems?:
     | T
     | {
@@ -2939,6 +3103,15 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  socialLinks?:
+    | T
+    | {
+        icon?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  copyright?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2964,31 +3137,6 @@ export interface TaskSchedulePublish {
     user?: (number | null) | User;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
